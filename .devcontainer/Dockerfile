@@ -12,12 +12,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install Laravel
 RUN composer create-project --prefer-dist laravel/laravel /var/www/html/laravel
 
-# Remove default Apache index.html
-RUN rm /var/www/html/index.html
-
 COPY ./.config/my.cnf /etc/mysql/my.cnf
 COPY ./.config/config.inc.php /var/www/html/phpmyadmin/phpMyAdmin-5.1.1-all-languages/config.inc.php
 COPY ./.config/grant-privileges.sql /grant-privileges.sql
 COPY ./.config/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
