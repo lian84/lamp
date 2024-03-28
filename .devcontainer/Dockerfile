@@ -6,7 +6,6 @@ RUN apt-get update && \
     a2enmod rewrite && \
     rm -rf /var/lib/apt/lists/*
 
-# Installa 5.2.1 di phpMyAdmin
 RUN mkdir -p /var/www/html/phpmyadmin && \
     curl -O https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-languages.zip && \
     unzip phpMyAdmin-5.2.1-all-languages.zip && \
@@ -14,9 +13,8 @@ RUN mkdir -p /var/www/html/phpmyadmin && \
     rm phpMyAdmin-5.2.1-all-languages.zip
 
 COPY ./.config/my.cnf /etc/mysql/my.cnf
-COPY ./.config/config.inc.php /var/www/html/phpmyadmin/config.inc.php
+COPY ./.config/config.inc.php /var/www/html/phpmyadmin/phpMyAdmin-5.2.1-all-languages/config.inc.php
 COPY ./.config/grant-privileges.sql /grant-privileges.sql
 COPY ./.config/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-
